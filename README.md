@@ -78,7 +78,7 @@ gemini 명령어를 선택합니다.
 
 질문 필드에 AI에게 할 질문을 입력하고 Enter를 누릅니다.
 
-봇은 질문 내용과 답변을 포함하는 Embed 메시지로 응답할 것입니다
+봇은 질문과 답변이 포함된 일반 텍스트 메시지를 전송합니다.
 <div align="center">
       <img alt="Fiber" src="https://cdn.discordapp.com/attachments/1442483841293094952/1442488098767503434/markdown.png?ex=69259d3a&is=69244bba&hm=77bb641091ae915629dd3ee89c0e36f55d5631d87186528207b6b6de5d84a5d3&">
 </div>

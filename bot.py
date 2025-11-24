@@ -48,14 +48,14 @@ async def on_ready():
 )
 async def gemini_command(interaction: discord.Interaction, 질문: str):
     """
-    디스코드의 슬래시 명령어 (/gemini)를 처리하고 Embed 형태로 응답합니다.
-    (사용자의 질문 내용을 포함하도록 수정되었습니다.)
+    디스코드의 슬래시 명령어 (/gemini)를 처리하고 일반 텍스트로 응답합니다.
+    (질문자와 질문 내용이 답변 메시지 안에 포함되도록 수정되었습니다.)
     """
     # 응답 대기 메시지를 먼저 보냅니다.
     await interaction.response.defer(thinking=True)
     
-    # Gemini 모델에 전달할 프롬프트 구성
-    prompt = f"[Discord User: {interaction.user.name}] Question: {질문}"
+    # Gemini 모델에 전달할 프롬프트 구성 (Gemini 모델이 답변만 하도록 유도)
+    prompt = f"질문에 대해 답변해 주세요: {질문}"
 
     try:
         # 4. Gemini API 호출
@@ -64,54 +64,34 @@ async def gemini_command(interaction: discord.Interaction, 질문: str):
             contents=prompt
         )
 
-        response_text = response.text
+        gemini_response = response.text
         
-        # 5. Embed 생성 및 응답 전송 (질문 포함)
+        # 5. 응답 텍스트 생성 (질문 내용 포함)
+        # Markdown을 사용하여 질문 내용을 강조합니다.
         
-        # Embed 생성
-        embed = discord.Embed(
-            title="✨ Gemini AI 답변",
-            description=f"**질문자:** {interaction.user.mention}", # 질문자 멘션
-            color=0x42f5e7 
-        )
+        header = f"**{interaction.user.name}님의 질문:** {질문}\n---\n"
         
-        # 질문 내용 필드 추가
-        embed.add_field(
-            name="📝 당신의 질문", 
-            value=f"```\n{질문}\n```", # 코드 블록으로 감싸 깔끔하게 표시
-            inline=False
-        )
-        
-        # 답변 내용 필드 추가 및 1024자 제한 처리
-        if len(response_text) > 1024:
-            embed.add_field(
-                name="💡 Gemini 답변 (일부)", 
-                value=response_text[:1020] + "...", 
-                inline=False
-            )
-        else:
-            embed.add_field(
-                name="💡 Gemini 답변", 
-                value=response_text, 
-                inline=False
-            )
+        full_message = header + gemini_response
 
-        embed.set_footer(text=f"Model: {GEMINI_MODEL}")
-        
-        # 최종 응답 전송
-        await interaction.followup.send(embed=embed)
+        # 디스코드 메시지 길이 제한 (2000자) 처리
+        if len(full_message) > 2000:
+            # 질문 헤더를 포함한 2000자 이내로 자릅니다.
+            full_message = full_message[:1990] + "\n\n...(답변이 너무 길어 잘렸습니다.)"
+
+        # 6. 최종 일반 텍스트 응답 전송
+        await interaction.followup.send(full_message)
 
     except Exception as e:
         print(f"Gemini API 호출 중 오류 발생: {e}")
         await interaction.followup.send(
-            "죄송합니다, AI 응답 처리 중 오류가 발생했습니다. (서버 문제 또는 API 키 확인)", 
+            "죄송합니다, AI 응답 처리 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.", 
             ephemeral=True
         )
 
 
-# 6. 봇 실행
+# 7. 봇 실행
 if not DISCORD_TOKEN:
-    raise ValueError("DISCORD_BOT_TOKEN 환경 변수를 설정해야 합니다.")
+    raise ValueError("DISCORD_BOT_TOKEN 환경 변수가 설정되지 않았습니다.")
 
 try:
     bot.run(DISCORD_TOKEN)

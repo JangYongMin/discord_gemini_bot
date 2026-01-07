@@ -52,7 +52,7 @@ python bot.py
 
 터미널에 "로그인 성공: [봇 이름]" 메시지가 표시되면 정상적으로 작동 중입니다.  
 <div align="center">
-    <img alt="Fiber" src="https://cdn.discordapp.com/attachments/1442483841293094952/1442483865569726474/powershell.png?ex=69259949&is=692447c9&hm=f160e3d01571449c0cb28ef9ae727806e9bd5f9b5e5c467c7ca4a554ced99172&">
+    <img alt="Fiber" src="https://firebasestorage.googleapis.com/v0/b/portfolio-83772.firebasestorage.app/o/bot1.png?alt=media&token=de291073-7f27-438f-b08e-13a32bc05bfd">
 </div>
 
 ## 봇 사용 방법
@@ -63,5 +63,5 @@ gemini 명령어를 선택합니다.
 질문 필드에 AI에게 할 질문을 입력하고 Enter를 누릅니다.  
 봇은 질문과 답변이 포함된 일반 텍스트 메시지를 전송합니다.  
 <div align="center">
-      <img alt="Fiber" src="https://cdn.discordapp.com/attachments/1442483841293094952/1442488098767503434/markdown.png?ex=69259d3a&is=69244bba&hm=77bb641091ae915629dd3ee89c0e36f55d5631d87186528207b6b6de5d84a5d3&">
+      <img alt="Fiber" src="https://firebasestorage.googleapis.com/v0/b/portfolio-83772.firebasestorage.app/o/bot2.png?alt=media&token=16d56477-52eb-4da0-941a-e319032d2f16">
 </div>
